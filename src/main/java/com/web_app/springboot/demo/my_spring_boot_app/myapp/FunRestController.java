@@ -8,6 +8,11 @@ public class FunRestController {
 
     @GetMapping("/")
     public String sayHello(){
-        return "Hello, this is abinesh";
+        return "Hello, this is abinesh eswaran reruning";
+    }
+
+    @GetMapping("/workout")
+    public String workout(){
+        return "Going to gym for workout...";
     }
 }
