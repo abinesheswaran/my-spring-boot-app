@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class VehicleController {
     private Vehicle myVehicle;
 
+//    recommended not to use
+//    @Autowired
+//    private Vehicle myVehicle;
+
     @Autowired
     public void setMyVehicle(Vehicle vehicle) {
         myVehicle = vehicle;
