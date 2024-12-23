@@ -10,15 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/animal")
 public class AnimalController {
     private Animal myAnimal;
+    private Animal myAnotherAnimal;
 
     @Autowired
-    public AnimalController(Animal animal){
+    public AnimalController(Animal animal, Animal anotherAnimal) {
         myAnimal = animal;
+        myAnotherAnimal = anotherAnimal;
     }
 
     @GetMapping("/move")
-    public String move(){
+    public String move() {
         return myAnimal.move();
+    }
+
+    @GetMapping("/check")
+    public String check() {
+        return "Comparing beans: myCoach == anotherCoach, " + (myAnimal == myAnotherAnimal);
     }
 
 }
