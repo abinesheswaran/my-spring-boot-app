@@ -1,4 +1,4 @@
-package com.web_app.springboot.demo.my_spring_boot_app.myapp;
+package com.web_app.springboot.demo.my_spring_boot_app.myapp.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
