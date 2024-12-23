@@ -1,23 +1,24 @@
 package com.web_app.springboot.demo.my_spring_boot_app.myapp.controller;
 
-import com.web_app.springboot.demo.my_spring_boot_app.myapp.utils.Coach;
+import com.web_app.springboot.demo.otherUtils.Animal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/coach")
-public class CoachController {
-    private Coach myCoach;
+@RequestMapping("/animal")
+public class AnimalController {
+    private Animal myAnimal;
 
     @Autowired
-    public CoachController(Coach coach) {
-        myCoach = coach;
+    public AnimalController(Animal animal){
+        myAnimal = animal;
     }
 
-    @GetMapping("/workout")
-    public String workout() {
-        return myCoach.dailyWorkout();
+    @GetMapping("/move")
+    public String move(){
+        return myAnimal.move();
     }
+
 }
