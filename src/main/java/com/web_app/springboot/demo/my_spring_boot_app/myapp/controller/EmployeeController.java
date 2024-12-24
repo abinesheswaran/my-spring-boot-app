@@ -24,9 +24,8 @@ public class EmployeeController {
 
     @PostMapping
     public Employee createEmployee(@RequestBody Employee employee) {
-        Employee employee1 = new Employee("abinesh", "IT");
-        employeeDAO.save(employee1);
-        return employee1;
+        employeeDAO.save(employee);
+        return employee;
     }
 
     @GetMapping
@@ -42,5 +41,13 @@ public class EmployeeController {
     @GetMapping("/byName/{name}")
     public List<Employee> getEmployeesbyName(@PathVariable String name){
         return employeeDAO.findByName(name);
+    }
+
+    @PostMapping("/update/{id}")
+    public void updateEmployee(@PathVariable Integer id,@RequestBody Employee employee){
+        Employee theEmployee = employeeDAO.findById(id);
+        theEmployee.setName(employee.getName());
+        theEmployee.setDepartment(employee.getDepartment());
+        employeeDAO.update(theEmployee);
     }
 }
