@@ -42,4 +42,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     theQuery.setParameter("theData",name);
     return theQuery.getResultList();
     }
+
+    @Override
+    @Transactional
+    public void update(Employee employee) {
+        entityManager.merge(employee);
+    }
 }
