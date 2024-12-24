@@ -4,6 +4,7 @@ import com.web_app.springboot.demo.my_spring_boot_app.myapp.dao.EmployeeDAOImpl;
 import com.web_app.springboot.demo.my_spring_boot_app.myapp.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +31,16 @@ public class EmployeeController {
 
     @GetMapping
     public Employee getEmployee() {
-        return employeeDAO.find(1);
+        return employeeDAO.findById(1);
     }
 
     @GetMapping("/all")
     public List<Employee> getAllEmployees() {
         return employeeDAO.findAll();
+    }
+
+    @GetMapping("/byName/{name}")
+    public List<Employee> getEmployeesbyName(@PathVariable String name){
+        return employeeDAO.findByName(name);
     }
 }
