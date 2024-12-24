@@ -26,7 +26,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee find(Integer id) {
+    public Employee findById(Integer id) {
         return entityManager.find(Employee.class, id);
     }
 
@@ -34,5 +34,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public List<Employee> findAll() {
         TypedQuery theQuery =  entityManager.createQuery("FROM Employee",Employee.class);
         return theQuery.getResultList();
+    }
+
+    @Override
+    public List<Employee> findByName(String name) {
+    TypedQuery theQuery = entityManager.createQuery("FROM Employee where name=:theData",Employee.class);
+    theQuery.setParameter("theData",name);
+    return theQuery.getResultList();
     }
 }
