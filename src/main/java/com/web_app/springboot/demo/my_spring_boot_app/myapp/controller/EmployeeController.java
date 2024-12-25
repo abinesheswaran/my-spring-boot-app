@@ -3,6 +3,7 @@ package com.web_app.springboot.demo.my_spring_boot_app.myapp.controller;
 import com.web_app.springboot.demo.my_spring_boot_app.myapp.dao.EmployeeDAOImpl;
 import com.web_app.springboot.demo.my_spring_boot_app.myapp.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,9 +46,16 @@ public class EmployeeController {
 
     @PostMapping("/update/{id}")
     public void updateEmployee(@PathVariable Integer id,@RequestBody Employee employee){
-        Employee theEmployee = employeeDAO.findById(id);
-        theEmployee.setName(employee.getName());
-        theEmployee.setDepartment(employee.getDepartment());
-        employeeDAO.update(theEmployee);
+        employeeDAO.update(id,employee);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployeeById(@PathVariable Integer id){
+        employeeDAO.delete(id);
+    }
+
+    @DeleteMapping
+    public int deleteAll(){
+        return employeeDAO.deleteAll();
     }
 }

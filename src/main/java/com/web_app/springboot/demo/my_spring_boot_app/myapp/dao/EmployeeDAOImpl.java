@@ -32,20 +32,37 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<Employee> findAll() {
-        TypedQuery theQuery =  entityManager.createQuery("FROM Employee",Employee.class);
+        TypedQuery theQuery = entityManager.createQuery("FROM Employee", Employee.class);
         return theQuery.getResultList();
     }
 
     @Override
     public List<Employee> findByName(String name) {
-    TypedQuery theQuery = entityManager.createQuery("FROM Employee where name=:theData",Employee.class);
-    theQuery.setParameter("theData",name);
-    return theQuery.getResultList();
+        TypedQuery theQuery = entityManager.createQuery("FROM Employee where name=:theData", Employee.class);
+        theQuery.setParameter("theData", name);
+        return theQuery.getResultList();
     }
 
     @Override
     @Transactional
-    public void update(Employee employee) {
+    public void update(Integer id, Employee employee) {
+        Employee theEmployee = entityManager.find(Employee.class, id);
+        theEmployee.setName(employee.getName());
+        theEmployee.setDepartment(employee.getDepartment());
         entityManager.merge(employee);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        Employee employee = entityManager.find(Employee.class, id);
+        entityManager.remove(employee);
+    }
+
+    @Override
+    @Transactional
+    public int deleteAll() {
+        int rows = entityManager.createQuery("DELETE FROM Employee").executeUpdate();
+        return rows;
     }
 }
