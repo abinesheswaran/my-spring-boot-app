@@ -1,55 +1,57 @@
 package com.example.springboot.cruddemo.service;
 
-import com.example.springboot.cruddemo.dao.EmployeeDAO;
 import com.example.springboot.cruddemo.entity.Employee;
-import jakarta.transaction.Transactional;
+import com.example.springboot.cruddemo.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeDAO employeeDAO;
+    private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeDAO theEmployeeDAO) {
-        employeeDAO = theEmployeeDAO;
+    public EmployeeServiceImpl(EmployeeRepository theemployeeRepository) {
+        employeeRepository = theemployeeRepository;
     }
 
     @Override
     public List<Employee> findAll() {
-        return employeeDAO.findAll();
+        return employeeRepository.findAll();
     }
 
     @Override
     public Employee findById(Integer id) {
-        return employeeDAO.findById(id);
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isPresent()) {
+            return employee.get();
+        } else {
+            throw new RuntimeException("Did not find employee id - " + id);
+        }
     }
 
     @Override
-    @Transactional
     public Employee save(Employee employee) {
-        return employeeDAO.save(employee);
+        employee.setId(null);
+        return employeeRepository.save(employee);
     }
 
     @Override
-    @Transactional
     public Employee updateById(Integer id, Employee employee) {
         employee.setId(id);
-        return employeeDAO.updateById(id, employee);
+        return employeeRepository.save(employee);
     }
 
     @Override
-    @Transactional
     public void deleteById(Integer id) {
-        employeeDAO.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 
     @Override
-    @Transactional
     public void deleteAll() {
-        employeeDAO.deleteAll();
+        employeeRepository.deleteAll();
     }
 }
