@@ -29,7 +29,10 @@ public class CruddemoApplication {
 		System.out.println("Saving instructor: "+instructorDetail);
 		appDAO.save(instructor);
 		System.out.println("Done!");
-		System.out.println(appDAO.findById(9));
-		appDAO.deleteAll();
+		System.out.println("Printing find by id: "+ appDAO.findById(27));
+		System.out.println("Printing findDetailById: "+ appDAO.findDetailById(34)+ appDAO.findDetailById(34).getInstructor());
+		System.out.println("Deleting all instructors!");
+//		appDAO.deleteAll();
+		System.out.println("Done Deleting all instructors!");
 	}
 }
